@@ -10,6 +10,7 @@ import 'package:de_fi_sample1/providers/user_provider.dart';
 import 'package:de_fi_sample1/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Instagram Clone',
         theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: mobileBackgroundColor,
+          scaffoldBackgroundColor: Colors.transparent,
         ),
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),

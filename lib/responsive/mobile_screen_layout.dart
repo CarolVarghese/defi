@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:de_fi_sample1/utils/colors.dart';
 import 'package:de_fi_sample1/utils/global_variable.dart';
 
+
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
 
@@ -46,7 +47,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         onPageChanged: onPageChanged,
       ),
       bottomNavigationBar: CupertinoTabBar(
-        backgroundColor: mobileBackgroundColor,
+        backgroundColor: Color.fromRGBO(
+            76, 187, 23, 1.0),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
@@ -58,7 +60,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           ),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.search,
+                Icons.add_business_sharp,
                 color: (_page == 1) ? primaryColor : secondaryColor,
               ),
               label: '',
@@ -72,7 +74,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
               backgroundColor: primaryColor),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.favorite,
+              Icons.add_location_alt_outlined,
               color: (_page == 3) ? primaryColor : secondaryColor,
             ),
             label: '',

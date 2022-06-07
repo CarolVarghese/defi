@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:de_fi_sample1/utils/colors.dart';
 import 'package:de_fi_sample1/utils/global_variable.dart';
 import 'package:de_fi_sample1/widgets/post_card.dart';
+import 'package:de_fi_sample1/screens/search_screen.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -17,37 +18,38 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
+    return Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color.fromRGBO(29, 127, 229, 1.0), Color.fromRGBO(
+                    76, 187, 23, 1.0)])),
+
+    child: Scaffold(
       backgroundColor:
-      width > webScreenSize ? webBackgroundColor : mobileBackgroundColor,
+      width > webScreenSize ? webBackgroundColor : Colors.transparent,
       appBar: width > webScreenSize
           ? null
           : AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Color.fromRGBO(29, 127, 229, 1.0),
         centerTitle: true,
-        title: Text("De-Fi"),
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
-            PopupMenuItem<int>(
-              value: 0,
-              child: Text("My Account"),
-            ),
-
-            PopupMenuItem<int>(
-            value: 1,
-            child: Text("Settings"),
-            ),
-
-            PopupMenuItem<int>(
-            value: 2,
-            child: Text("Logout"),
-            ),
-            ];
-            //code to execute when this button is pressed
-          },
-          icon: Icon(Icons.menu),
+        title: Text("De-Fi",
+          style: TextStyle(
+              color: Colors.grey[800],
+              fontWeight: FontWeight.w800,
+              fontStyle: FontStyle.italic,
+              fontFamily: 'Pattaya',
+              fontSize: 20),
         ),
         actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              color: primaryColor,
+            ),
+            onPressed: ()=> { const SearchScreen()},
+          ),
           IconButton(
             icon: const Icon(
               Icons.messenger_outline,
@@ -80,6 +82,7 @@ class _FeedScreenState extends State<FeedScreen> {
           );
         },
       ),
+    )
     );
   }
 }

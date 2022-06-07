@@ -53,6 +53,8 @@ dev_dependencies:
   image_picker: ^0.8.5+3
   provider: ^6.0.3
   uuid: ^3.0.6
+  location: ^4.2.0
+  geolocator: ^7.0.1
   flutter_staggered_grid_view: ^0.4.1
 
 # For information on the generic Dart part of this file, see the
@@ -69,6 +71,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/ic_instagram.svg
+    - assets/images/signup_screen.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -83,10 +86,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: Pattaya
+       fonts:
+         - asset: assets/fonts/Pattaya-Regular.ttf
+           weight: 700
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

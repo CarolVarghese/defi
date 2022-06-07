@@ -69,9 +69,9 @@ class _PostCardState extends State<PostCard> {
       // boundary needed for web
       decoration: BoxDecoration(
         border: Border.all(
-          color: width > webScreenSize ? secondaryColor : mobileBackgroundColor,
+          color: width > webScreenSize ? secondaryColor : Colors.transparent,
         ),
-        color: mobileBackgroundColor,
+        color: Colors.transparent,
       ),
       padding: const EdgeInsets.symmetric(
         vertical: 10,
@@ -225,7 +225,7 @@ class _PostCardState extends State<PostCard> {
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.comment_outlined,
+                  Icons.adb,
                 ),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -237,7 +237,7 @@ class _PostCardState extends State<PostCard> {
               ),
               IconButton(
                   icon: const Icon(
-                    Icons.send,
+                    Icons.account_balance_wallet_outlined,
                   ),
                   onPressed: () {}),
               Expanded(

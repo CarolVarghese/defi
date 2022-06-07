@@ -11,17 +11,19 @@ import 'package:de_fi_sample1/utils/colors.dart';
 import 'package:de_fi_sample1/utils/global_variable.dart';
 import 'package:de_fi_sample1/utils/utils.dart';
 import 'package:de_fi_sample1/widgets/text_field_input.dart';
+import 'package:geolocator/geolocator.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+class AddDestinationScreen extends StatefulWidget {
+  const AddDestinationScreen({Key? key}) : super(key: key);
+
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  _AddDestinationScreenState createState() => _AddDestinationScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+class _AddDestinationScreenState extends State<AddDestinationScreen> {
+  final TextEditingController _destinationnameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   bool _isLoading = false;
@@ -30,9 +32,36 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
+    _descriptionController.dispose();
     _passwordController.dispose();
-    _usernameController.dispose();
+    _destinationnameController.dispose();
+  }
+
+  late String currentLocation = '' ;
+  late Position position;
+
+  void _getCurrentLocation() async {
+    LocationPermission permission;
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          currentLocation ="Permission Denied";
+        });
+      }else{
+        var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        setState(() {
+          currentLocation ="latitude: ${position.latitude}" + " , " + "Logitude: ${position.longitude}";
+        });
+      }
+    }else{
+      var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      setState(() {
+        currentLocation ="latitude: ${position.latitude}" + " , " + "Logitude: ${position.longitude}";
+      });
+    }
   }
 
   void signUpUser() async {
@@ -43,9 +72,9 @@ class _SignupScreenState extends State<SignupScreen> {
 
     // signup user using our authmethodds
     String res = await AuthMethods().signUpUser(
-        email: _emailController.text,
+        email: _descriptionController.text,
         password: _passwordController.text,
-        username: _usernameController.text,
+        username: _destinationnameController.text,
         bio: _bioController.text,
         file: _image!);
     // if string returned is sucess, user has been created
@@ -87,11 +116,7 @@ class _SignupScreenState extends State<SignupScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
-          decoration: const BoxDecoration(
-          image: DecorationImage(
-          image: AssetImage("assets/images/signup_screen.jpg"),
-          fit: BoxFit.cover),
-          ),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -99,82 +124,88 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Container(),
                 flex: 2,
               ),
-              Text('De-Fi',
+              Text('Add a Destination',
                 style: TextStyle(
                     color: Colors.grey[800],
-                    fontWeight: FontWeight.w800,
                     fontStyle: FontStyle.italic,
-                    fontFamily: 'Pattaya',
                     fontSize: 40),
               ),
               const SizedBox(
                 height: 64,
               ),
-              Stack(
-                children: [
-                  _image != null
-                      ? CircleAvatar(
-                    radius: 64,
-                    backgroundImage: MemoryImage(_image!),
-                    backgroundColor: Colors.red,
-                  )
-                      : const CircleAvatar(
-                    radius: 64,
-                    backgroundImage: NetworkImage(
-                        'https://i.stack.imgur.com/l60Hf.png'),
-                    backgroundColor: Colors.red,
-                  ),
-                  Positioned(
-                    bottom: -10,
-                    left: 80,
-                    child: IconButton(
-                      onPressed: selectImage,
-                      icon: const Icon(Icons.add_a_photo),
-                    ),
-                  )
-                ],
+              Container(
+                width: double.infinity,
+                height: 50,
+                child: IconButton(
+                  onPressed: selectImage,
+                  icon: const Icon(Icons.add_a_photo),
+                ),
               ),
+
               const SizedBox(
                 height: 24,
               ),
               TextFieldInput(
-                hintText: 'Enter your username',
+                hintText: 'Destination Name',
                 textInputType: TextInputType.text,
-                textEditingController: _usernameController,
+                textEditingController: _destinationnameController,
               ),
               const SizedBox(
                 height: 24,
               ),
               TextFieldInput(
-                hintText: 'Enter your email',
+                hintText: 'Discription',
                 textInputType: TextInputType.emailAddress,
-                textEditingController: _emailController,
+                textEditingController: _descriptionController,
               ),
+
               const SizedBox(
                 height: 24,
               ),
-              TextFieldInput(
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                textEditingController: _passwordController,
-                isPass: true,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              TextFieldInput(
-                hintText: 'Enter your bio',
-                textInputType: TextInputType.text,
-                textEditingController: _bioController,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                  onPressed: () {
+                    _getCurrentLocation();
+                    },
+                  child: const Text('Add location')),
+
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.grey
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Column(
+              children: <Widget>[
+          Row(
+          children: <Widget>[
+              Icon(Icons.location_on),
+          SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Location',
+                ),
+                (currentLocation!=null)?Text(currentLocation):Container(),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          ],
+          ),
+              ],
+          ),
+        ),
               InkWell(
                 child: Container(
                   child: !_isLoading
                       ? const Text(
-                    'Sign up',
+                    'Submit',
                   )
                       : const CircularProgressIndicator(
                     color: primaryColor,
@@ -198,33 +229,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Container(),
                 flex: 2,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: const Text(
-                      'Already have an account?',
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    ),
-                    child: Container(
-                      child: const Text(
-                        ' Login.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                    ),
-                  ),
-                ],
-              ),
+
             ],
           ),
         ),

@@ -67,6 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
               horizontal: MediaQuery.of(context).size.width / 3)
               : const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/signup_screen.jpg"),
+                fit: BoxFit.cover),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -74,10 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(),
                 flex: 2,
               ),
-              SvgPicture.asset(
-                'assets/ic_instagram.svg',
-                color: primaryColor,
-                height: 64,
+              Text(
+                'De-Fi',
+                style: TextStyle(
+                    color: Colors.grey[800],
+                    fontWeight: FontWeight.w800,
+                    fontStyle: FontStyle.italic,
+                    fontFamily: 'Pattaya',
+                    fontSize: 40),
               ),
               const SizedBox(
                 height: 64,
@@ -95,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputType: TextInputType.text,
                 textEditingController: _passwordController,
                 isPass: true,
+
               ),
               const SizedBox(
                 height: 24,
