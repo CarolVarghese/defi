@@ -48,8 +48,14 @@ class _FeedScreenState extends State<FeedScreen> {
               Icons.search,
               color: primaryColor,
             ),
-            onPressed: ()=> {  SearchScreen()},
+            onPressed: ()=> Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => SearchScreen(
+                ),
+              ),
+            ),
           ),
+
           IconButton(
             icon: const Icon(
               Icons.messenger_outline,

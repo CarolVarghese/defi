@@ -115,7 +115,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
     return _file == null
         ? Center(
-      children
       child: IconButton(
         icon: const Icon(
           Icons.upload,
