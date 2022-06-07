@@ -126,8 +126,8 @@ class _AddDestinationScreenState extends State<AddDestinationScreen> {
               ),
               Text('Add a Destination',
                 style: TextStyle(
-                    color: Colors.grey[800],
-                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                    fontStyle: FontStyle.normal,
                     fontSize: 40),
               ),
               const SizedBox(

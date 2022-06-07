@@ -128,8 +128,8 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
 
               Text('Add a Service',
                 style: TextStyle(
-                    color: Colors.indigo[800],
-                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                    fontStyle: FontStyle.normal,
                     fontSize: 40),
               ),
               const SizedBox(

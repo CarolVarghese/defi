@@ -48,7 +48,7 @@ class _FeedScreenState extends State<FeedScreen> {
               Icons.search,
               color: primaryColor,
             ),
-            onPressed: ()=> { const SearchScreen()},
+            onPressed: ()=> {  SearchScreen()},
           ),
           IconButton(
             icon: const Icon(
