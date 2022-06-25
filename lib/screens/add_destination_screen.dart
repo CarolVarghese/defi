@@ -12,6 +12,7 @@ import 'package:de_fi_sample1/utils/global_variable.dart';
 import 'package:de_fi_sample1/utils/utils.dart';
 import 'package:de_fi_sample1/widgets/text_field_input.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:place_picker/place_picker.dart';
 
 class AddDestinationScreen extends StatefulWidget {
   const AddDestinationScreen({Key? key}) : super(key: key);
@@ -39,6 +40,15 @@ class _AddDestinationScreenState extends State<AddDestinationScreen> {
 
   late String currentLocation = '' ;
   late Position position;
+
+
+  void showPlacePicker() async {
+    currentLocation = await Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => PlacePicker("AIzaSyBjRcnpZyg459Z2ZhT4_KMmDAFKrpWOyiA")));
+
+    // Handle the result in your way
+
+  }
 
   void _getCurrentLocation() async {
     LocationPermission permission;
@@ -165,7 +175,7 @@ class _AddDestinationScreenState extends State<AddDestinationScreen> {
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.green),
                   onPressed: () {
-                    _getCurrentLocation();
+                    showPlacePicker();
                     },
                   child: const Text('Add location')),
 
